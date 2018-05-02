@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodTypes.Web", "BloodTypes.Web\BloodTypes.Web.csproj", "{C62B62B9-A63B-4B6D-9485-4D52B2D68C5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypes.Web", "BloodTypes.Web\BloodTypes.Web.csproj", "{C62B62B9-A63B-4B6D-9485-4D52B2D68C5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypes.Infrastructure", "BloodTypes.Infrastructure\BloodTypes.Infrastructure.csproj", "{BCB28C8C-7773-4FB7-98A9-7E3F4DCE7198}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypes.Core", "BloodTypes.Core\BloodTypes.Core.csproj", "{74B0B2A5-F59F-4402-BD3C-B6E2FF5EC5AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodTypes.Tests", "BloodTypes.Tests\BloodTypes.Tests.csproj", "{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{C62B62B9-A63B-4B6D-9485-4D52B2D68C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C62B62B9-A63B-4B6D-9485-4D52B2D68C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C62B62B9-A63B-4B6D-9485-4D52B2D68C5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCB28C8C-7773-4FB7-98A9-7E3F4DCE7198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCB28C8C-7773-4FB7-98A9-7E3F4DCE7198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCB28C8C-7773-4FB7-98A9-7E3F4DCE7198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCB28C8C-7773-4FB7-98A9-7E3F4DCE7198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B0B2A5-F59F-4402-BD3C-B6E2FF5EC5AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B0B2A5-F59F-4402-BD3C-B6E2FF5EC5AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B0B2A5-F59F-4402-BD3C-B6E2FF5EC5AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B0B2A5-F59F-4402-BD3C-B6E2FF5EC5AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
