@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypes.Core", "BloodTyp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypes.Tests", "BloodTypes.Tests\BloodTypes.Tests.csproj", "{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodTypes.Console", "BloodTypes.Console\BloodTypes.Console.csproj", "{2EB883CC-4E1A-4F52-A079-615BF32A225F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2EB883CC-4E1A-4F52-A079-615BF32A225F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2EB883CC-4E1A-4F52-A079-615BF32A225F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2EB883CC-4E1A-4F52-A079-615BF32A225F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2EB883CC-4E1A-4F52-A079-615BF32A225F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
