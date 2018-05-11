@@ -1,6 +1,7 @@
 ﻿using BloodTypes.Core.Interfaces;
 using BloodTypes.Core.Models;
 using Cassandra;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,27 @@ namespace BloodTypes.Infrastructure
 
         public bool Add(Person item)
         {
-            var result = this.session.Execute($"INSERT INTO people " +
-                $"(id, name, surname) " +
-                $"VALUES (uuid(), '{item.Name}', '{item.Surname}');");
+            try
+            {
+                var row = this.session.Execute($"INSERT INTO people " +
+                     $"(id, name, surname, city, country, birthday, telephone, bloodtype, weight, height) " +
+                     $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
+                     $"'{item.City}', '{item.Country}', '{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'," +
+                     $"'{item.Telephone}', '{item.BloodType}', {item.Weight.Value}, {item.Height.Value});");
+                //var row = this.session.Execute($"INSERT INTO people " +
+                //    $"(id, name, surname, city, country, birthday, telephone, bloodtype, weight, height) " +
+                //    $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
+                //    $"'{item.City}', '{item.Country}', " +
+                //    $"'{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'" +
+                //    $"'{item.Telephone}', '{item.BloodType}', " +
+                //    $"'{item.Weight.Value}', '{item.Height.Value}');");
 
-            return result.Any();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool AddMany(IEnumerable<Person> items)
@@ -33,19 +50,24 @@ namespace BloodTypes.Infrastructure
             foreach (Person item in items)
             {
                 statement.Append($"INSERT INTO people " +
-                    $"(id, name, surname) " +
-                    $"VALUES (uuid(), '{item.Name}', '{item.Surname}');");
+                     $"(id, name, surname, city, country, birthday, telephone, bloodtype, weight, height) " +
+                     $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
+                     $"'{item.City}', '{item.Country}', '{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'," +
+                     $"'{item.Telephone}', '{item.BloodType}', {item.Weight.Value}, {item.Height.Value});");
             }
             statement.Append("APPLY BATCH;");
 
-            this.session.Execute(statement.ToString());
-            return true; //TODO get real result
+            var row = this.session.Execute(statement.ToString());
+            bool.TryParse(row.FirstOrDefault()[0].ToString(), out bool result);
+            return result;
         }
 
-        public bool Delete(Person item)
+        public bool Remove(Person item)
         {
-            this.session.Execute($"DELETE FROM people WHERE id = {item.Id} IF EXISTS");
-            return true;
+            var row = this.session.Execute($"DELETE FROM people WHERE id = {item.Id} IF EXISTS");
+            bool.TryParse(row.FirstOrDefault()[0].ToString(), out bool result);
+
+            return result;
         }
 
         public Person Get(string id)
@@ -66,7 +88,7 @@ namespace BloodTypes.Infrastructure
                 $"SET name = '{item.Name}', surname = '{item.Surname}'" +
                 $"WHERE id = {item.Id} IF EXISTS;").FirstOrDefault();
 
-            if(result.Count() > 1 && bool.TryParse(result[0].ToString(), out bool value))
+            if (result.Count() > 1 && bool.TryParse(result[0].ToString(), out bool value))
             {
                 return value;
             }
@@ -82,7 +104,14 @@ namespace BloodTypes.Infrastructure
             {
                 Id = row["id"].ToString(),
                 Name = row["name"].ToString(),
-                Surname = row["surname"].ToString()
+                Surname = row["surname"].ToString(),
+                City = row["city"].ToString(),
+                Country = row["country"].ToString(),
+                Birthdate = row["birthday"] != null ? DateTime.Parse(row["birthday"].ToString()) : DateTime.Now,
+                Telephone = row["telephone"]?.ToString(),
+                BloodType = row["bloodtype"]?.ToString(),
+                Weight = row["weight"] != null ? Double.Parse(row["weight"].ToString()) : 0,
+                Height = row["height"] != null ? Double.Parse(row["height"].ToString()) : 0
             };
         }
     }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BloodTypes.Core.Models;
 using BloodTypes.Infrastructure;
+using System.Linq;
 
 namespace BloodTypes.Web.Controllers
 {
@@ -18,7 +19,7 @@ namespace BloodTypes.Web.Controllers
         // GET: People
         public async Task<IActionResult> Index()
         {
-            return View(await Task.Run(() => _context.People.GetAll()));
+            return View(await Task.Run(() => _context.People.GetAll().Take(20)));
         }
 
         // GET: People/Details/5
@@ -134,7 +135,7 @@ namespace BloodTypes.Web.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var person = await Task.Run(() => _context.People.Get(id));
-            _context.People.Delete(person);
+            _context.People.Remove(person);
             //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

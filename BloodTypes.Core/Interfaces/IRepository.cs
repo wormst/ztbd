@@ -9,6 +9,6 @@ namespace BloodTypes.Core.Interfaces
         bool Add(T item);
         bool AddMany(IEnumerable<T> items);
         bool Update(T item);
-        bool Delete(T item);
+        bool Remove(T item);
     }
 }
