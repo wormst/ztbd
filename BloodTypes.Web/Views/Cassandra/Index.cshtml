@@ -1,7 +1,55 @@
-﻿@{
+﻿@model IEnumerable<Cassandra.Host>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div>
-   Nodes info
+    <br />
+    <br />
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Datacenter)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rack)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsUp)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CassandraVersion)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datacenter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rack)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsUp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CassandraVersion.Major)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>

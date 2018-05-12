@@ -1,4 +1,5 @@
 ﻿using BloodTypes.Core.Models;
+using BloodTypes.Infrastructure.Repositories;
 using Cassandra;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,7 @@ namespace BloodTypes.Infrastructure
         private readonly string nodeAddress = "127.0.0.1";
 
         public PersonRepository People { get; set; }
+        public ClusterRepository Clusters { get; set; }
         public ISession Session { get; private set; }
 
         //public CassandraDbContext(DbContextOptions<CassandraDbContext> options)
@@ -25,8 +27,9 @@ namespace BloodTypes.Infrastructure
         {
             Cluster cluster = Cluster.Builder().AddContactPoint(nodeAddress).Build();
             Session = cluster.Connect(this.keyspace);
-
+            
             People = new PersonRepository(Session);
+            Clusters = new ClusterRepository(cluster);
         }
 
         public override void Dispose()

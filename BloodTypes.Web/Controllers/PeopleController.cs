@@ -9,17 +9,20 @@ namespace BloodTypes.Web.Controllers
 {
     public class PeopleController : Controller
     {
-        private readonly CassandraDbContext _context;
+        private readonly CassandraDbContext dbContext;
 
         public PeopleController(CassandraDbContext context)
         {
-            _context = context;
+            this.dbContext = context;
         }
 
         // GET: People
         public async Task<IActionResult> Index()
         {
-            return View(await Task.Run(() => _context.People.GetAll().Take(20)));
+            var data = this.dbContext.People.GetAll();
+            ViewData["PeopleCount"] = data.Count();
+
+            return View(await Task.Run(() => this.dbContext.People.GetAll().Take(20)));
         }
 
         // GET: People/Details/5
@@ -30,7 +33,7 @@ namespace BloodTypes.Web.Controllers
                 return NotFound();
             }
 
-            var person = await Task.Run(() => _context.People.Get(id));
+            var person = await Task.Run(() => this.dbContext.People.Get(id));
             if (person == null)
             {
                 return NotFound();
@@ -54,7 +57,7 @@ namespace BloodTypes.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.People.Add(person);
+                this.dbContext.People.Add(person);
                 //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -69,7 +72,7 @@ namespace BloodTypes.Web.Controllers
                 return NotFound();
             }
 
-            var person = await Task.Run(() => _context.People.Get(id));
+            var person = await Task.Run(() => this.dbContext.People.Get(id));
             if (person == null)
             {
                 return NotFound();
@@ -93,7 +96,7 @@ namespace BloodTypes.Web.Controllers
             {
                 try
                 {
-                    _context.People.Update(person);
+                    this.dbContext.People.Update(person);
                     //await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -120,7 +123,7 @@ namespace BloodTypes.Web.Controllers
                 return NotFound();
             }
 
-            var person = await Task.Run(() => _context.People.Get(id));
+            var person = await Task.Run(() => this.dbContext.People.Get(id));
             if (person == null)
             {
                 return NotFound();
@@ -134,15 +137,15 @@ namespace BloodTypes.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var person = await Task.Run(() => _context.People.Get(id));
-            _context.People.Remove(person);
+            var person = await Task.Run(() => this.dbContext.People.Get(id));
+            this.dbContext.People.Remove(person);
             //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PersonExists(string id)
         {
-            return _context.People.Get(id) != null;
+            return this.dbContext.People.Get(id) != null;
         }
     }
 }

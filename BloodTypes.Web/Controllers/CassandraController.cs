@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BloodTypes.Infrastructure;
+using BloodTypes.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +11,16 @@ namespace BloodTypes.Web.Controllers
 {
     public class CassandraController : Controller
     {
-        public IActionResult Index()
+        private readonly CassandraDbContext dbContext;
+
+        public CassandraController(CassandraDbContext dbContext)
         {
+            this.dbContext = dbContext;
+        }
 
-
-            return View();
+        public async Task<IActionResult> Index()
+        {
+            return View(await Task.Run(() => this.dbContext.Clusters.GetAll().Take(20)));
         }
     }
 }
