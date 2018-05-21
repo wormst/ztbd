@@ -37,6 +37,7 @@ namespace BloodTypes.Core.Models
         [DataType(DataType.PhoneNumber)]
         public string Telephone { get; set; }
 
+        [RegularExpression("(A|B|AB|0)[+-]", ErrorMessage = "Dozwolone grupy krwi: A+, A-, B+, B-, AB+, AB-, 0+, 0-")]
         public string BloodType { get; set; }
 
         [Range(20, 200)]

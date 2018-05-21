@@ -26,13 +26,6 @@ namespace BloodTypes.Infrastructure
                      $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
                      $"'{item.City}', '{item.Country}', '{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'," +
                      $"'{item.Telephone}', '{item.BloodType}', {item.Weight.Value}, {item.Height.Value});");
-                //var row = this.session.Execute($"INSERT INTO people " +
-                //    $"(id, name, surname, city, country, birthday, telephone, bloodtype, weight, height) " +
-                //    $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
-                //    $"'{item.City}', '{item.Country}', " +
-                //    $"'{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'" +
-                //    $"'{item.Telephone}', '{item.BloodType}', " +
-                //    $"'{item.Weight.Value}', '{item.Height.Value}');");
 
                 return true;
             }
@@ -64,10 +57,15 @@ namespace BloodTypes.Infrastructure
 
         public bool Remove(Person item)
         {
-            var row = this.session.Execute($"DELETE FROM people WHERE id = {item.Id} IF EXISTS");
-            bool.TryParse(row.FirstOrDefault()[0].ToString(), out bool result);
-
-            return result;
+            try
+            {
+                var row = this.session.Execute($"DELETE FROM people WHERE id = {item.Id} IF EXISTS");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public Person Get(string id)

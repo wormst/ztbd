@@ -11,7 +11,7 @@ namespace BloodTypes.Infrastructure
         public async static void Seed(CassandraDbContext context)
         {
             List<Person> people = new List<Person>();
-            foreach (string line in File.ReadLines(@"C:\Users\rxft84\Desktop\studia12maja\BloodTypesZTBD\BloodTypes.Infrastructure\SampleData\data.csv"))
+            foreach (string line in File.ReadLines(@"..\BloodTypes.Infrastructure\SampleData\data.csv"))
             {
                 string[] separated = line.Split(';');
 

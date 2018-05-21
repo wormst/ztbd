@@ -15,6 +15,7 @@ namespace BloodTypes.Infrastructure
 
         public PersonRepository People { get; set; }
         public ClusterRepository Clusters { get; set; }
+        public BloodAmountRepository BloodAmounts { get; set; }
         public ISession Session { get; private set; }
 
         //public CassandraDbContext(DbContextOptions<CassandraDbContext> options)
@@ -22,13 +23,13 @@ namespace BloodTypes.Infrastructure
         //{
         //}
 
-        //TODO: consider adding node address in here or keep a list of nodes
         public CassandraDbContext()
         {
             Cluster cluster = Cluster.Builder().AddContactPoint(nodeAddress).Build();
             Session = cluster.Connect(this.keyspace);
             
             People = new PersonRepository(Session);
+            BloodAmounts = new BloodAmountRepository(Session);
             Clusters = new ClusterRepository(cluster);
         }
 

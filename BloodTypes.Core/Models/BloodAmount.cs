@@ -2,14 +2,14 @@
 
 namespace BloodTypes.Core.Models
 {
-    public class BloodType
+    public class BloodAmount
     {
         public string Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Type { get; set; }
 
 
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
     }
 }

@@ -11,6 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypes.Core", "BloodTyp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodTypes.Tests", "BloodTypes.Tests\BloodTypes.Tests.csproj", "{23C3EBFC-E403-45DD-9A4B-83A795BFAEB6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{EE44309F-B311-4BBC-BBBA-D1069C3640B6}"
+	ProjectSection(SolutionItems) = preProject
+		cassandra.ps1 = cassandra.ps1
+		createTables.cql = createTables.cql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
