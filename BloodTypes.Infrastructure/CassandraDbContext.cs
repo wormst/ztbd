@@ -1,10 +1,6 @@
-﻿using BloodTypes.Core.Models;
-using BloodTypes.Infrastructure.Repositories;
+﻿using BloodTypes.Infrastructure.Repositories;
 using Cassandra;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace BloodTypes.Infrastructure
 {
@@ -27,7 +23,7 @@ namespace BloodTypes.Infrastructure
         {
             Cluster cluster = Cluster.Builder().AddContactPoint(nodeAddress).Build();
             Session = cluster.Connect(this.keyspace);
-            
+
             People = new PersonRepository(Session);
             BloodAmounts = new BloodAmountRepository(Session);
             Clusters = new ClusterRepository(cluster);
