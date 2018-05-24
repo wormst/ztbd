@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BloodTypes.Core.Interfaces;
+﻿using BloodTypes.Core.Interfaces;
 using BloodTypes.Core.Models;
 using BloodTypes.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -57,7 +52,7 @@ namespace BloodTypes.Web
                     template: "{controller=People}/{action=Index}/{id?}");
             });
 
-            //DbSeeder.Seed(dbContext);
+            DbSeeder.Seed(dbContext);
         }
     }
 }

@@ -11,6 +11,7 @@ namespace BloodTypes.Infrastructure
     public class PersonRepository : IRepository<Person>
     {
         private readonly ISession session;
+        private readonly string tableName = "people";
 
         public PersonRepository(ISession session)
         {
@@ -21,7 +22,7 @@ namespace BloodTypes.Infrastructure
         {
             try
             {
-                var row = this.session.Execute($"INSERT INTO people " +
+                var row = this.session.Execute($"INSERT INTO {tableName} " +
                      $"(id, name, surname, city, country, birthday, telephone, bloodtype, weight, height) " +
                      $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
                      $"'{item.City}', '{item.Country}', '{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'," +
@@ -42,7 +43,7 @@ namespace BloodTypes.Infrastructure
             statement.Append("BEGIN BATCH");
             foreach (Person item in items)
             {
-                statement.Append($"INSERT INTO people " +
+                statement.Append($"INSERT INTO {tableName} " +
                      $"(id, name, surname, city, country, birthday, telephone, bloodtype, weight, height) " +
                      $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
                      $"'{item.City}', '{item.Country}', '{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'," +
@@ -59,7 +60,7 @@ namespace BloodTypes.Infrastructure
         {
             try
             {
-                var row = this.session.Execute($"DELETE FROM people WHERE id = {item.Id} IF EXISTS");
+                var row = this.session.Execute($"DELETE FROM {tableName} WHERE id = {item.Id} IF EXISTS");
                 return true;
             }
             catch (Exception ex)
@@ -70,19 +71,19 @@ namespace BloodTypes.Infrastructure
 
         public Person Get(string id)
         {
-            return ConvertRowToPerson(session.Execute($"SELECT * FROM people " +
+            return ConvertRowToPerson(session.Execute($"SELECT * FROM {tableName} " +
                 $"WHERE id = {id};").FirstOrDefault());
         }
 
         public IEnumerable<Person> GetAll()
         {
-            RowSet people = session.Execute("SELECT * FROM people");
+            RowSet people = session.Execute($"SELECT * FROM {tableName}");
             return people.Select(row => ConvertRowToPerson(row));
         }
 
         public bool Update(Person item)
         {
-            Row result = session.Execute($"UPDATE people " +
+            Row result = session.Execute($"UPDATE {tableName} " +
                 $"SET name = '{item.Name}', surname = '{item.Surname}'" +
                 $"WHERE id = {item.Id} IF EXISTS;").FirstOrDefault();
 

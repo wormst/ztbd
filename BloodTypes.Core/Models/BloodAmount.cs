@@ -10,6 +10,6 @@ namespace BloodTypes.Core.Models
         public string Type { get; set; }
 
 
-        public double Quantity { get; set; }
+        public double Amount { get; set; }
     }
 }
