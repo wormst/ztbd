@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Cassandra.Host>
+﻿@model IEnumerable<BloodTypes.Core.Models.HostNode>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -12,7 +12,10 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Address)
+                    @Html.DisplayNameFor(model => model.IpAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Port)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Datacenter)
@@ -23,9 +26,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.IsUp)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CassandraVersion)
-                </th>
                 <th></th>
             </tr>
         </thead>
@@ -34,7 +34,10 @@
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address)
+                    @Html.DisplayFor(modelItem => item.IpAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Port)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Datacenter)
@@ -44,9 +47,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsUp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CassandraVersion.Major)
                 </td>
             </tr>
             }

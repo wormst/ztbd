@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -22,6 +23,8 @@ namespace BloodTypes.Infrastructure
             {
                 string[] separated = line.Split(';');
 
+                var usCulture = new CultureInfo("en-US");
+
                 Person person = new Person();
                 person.Gender = separated[0] == "female" ? Gender.Female : Gender.Male;
                 person.Name = separated[1];
@@ -29,11 +32,11 @@ namespace BloodTypes.Infrastructure
                 person.City = separated[3];
                 person.Country = separated[4];
                 string test = separated[5];
-                person.Birthdate = DateTime.Parse(separated[5]);
+                person.Birthdate = DateTime.Parse(separated[5], usCulture);
                 person.Telephone = separated[6];
                 person.BloodType = separated[7];
-                person.Weight = Double.Parse(separated[8]);
-                person.Height = Double.Parse(separated[9]);
+                person.Weight = Double.Parse(separated[8], usCulture);
+                person.Height = Double.Parse(separated[9], usCulture);
 
                 people.Add(person);
             }

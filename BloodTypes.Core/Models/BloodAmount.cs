@@ -9,7 +9,7 @@ namespace BloodTypes.Core.Models
         [Required]
         public string Type { get; set; }
 
-
+        [Display(Name = "Amount in liters")]
         public double Amount { get; set; }
     }
 }

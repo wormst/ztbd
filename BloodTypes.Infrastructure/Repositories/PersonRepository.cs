@@ -26,7 +26,8 @@ namespace BloodTypes.Infrastructure
                      $"(id, name, surname, city, country, birthday, telephone, bloodtype, weight, height) " +
                      $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
                      $"'{item.City}', '{item.Country}', '{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'," +
-                     $"'{item.Telephone}', '{item.BloodType}', {item.Weight.Value}, {item.Height.Value});");
+                     $"'{item.Telephone}', " +
+                     $"'{item.BloodType}', {(int)item.Weight.Value}, {(int)item.Height.Value});");
 
                 return true;
             }
@@ -47,7 +48,8 @@ namespace BloodTypes.Infrastructure
                      $"(id, name, surname, city, country, birthday, telephone, bloodtype, weight, height) " +
                      $"VALUES (uuid(), '{item.Name}', '{item.Surname}', " +
                      $"'{item.City}', '{item.Country}', '{item.Birthdate.Value.Date.ToString("yyyy-MM-dd")}'," +
-                     $"'{item.Telephone}', '{item.BloodType}', {item.Weight.Value}, {item.Height.Value});");
+                     $"'{item.Telephone}', " +
+                     $"'{item.BloodType}', {(int)item.Weight.Value}, {(int)item.Height.Value});");
             }
             statement.Append("APPLY BATCH;");
 

@@ -1,4 +1,5 @@
-﻿using BloodTypes.Infrastructure.Repositories;
+﻿using System.Net;
+using BloodTypes.Infrastructure.Repositories;
 using Cassandra;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,9 @@ namespace BloodTypes.Infrastructure
 
         public CassandraDbContext()
         {
-            Cluster cluster = Cluster.Builder().AddContactPoint(nodeAddress).Build();
+            Cluster cluster = Cluster.Builder()
+                .AddContactPoint(nodeAddress)
+                .Build();
             Session = cluster.Connect(this.keyspace);
 
             People = new PersonRepository(Session);

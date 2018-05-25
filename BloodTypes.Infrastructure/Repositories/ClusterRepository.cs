@@ -1,4 +1,5 @@
-﻿using Cassandra;
+﻿using BloodTypes.Core.Models;
+using Cassandra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,20 @@ namespace BloodTypes.Infrastructure.Repositories
             this.cluster = cluster;
         }
 
-        public ICollection<Host> GetAll()
+        public ICollection<HostNode> GetAll()
         {
-            return this.cluster.AllHosts();
+            var hosts = this.cluster.AllHosts();
+
+            List<HostNode> hostNodes = hosts.Select(host => new HostNode
+            {
+                Datacenter = host.Datacenter,
+                Rack = host.Rack,
+                Port = host.Address.Port,
+                IpAddress = host.Address.Address.ToString(),
+                IsUp = host.IsUp
+            }).ToList();
+
+            return hostNodes;
         }
     }
 }
