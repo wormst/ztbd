@@ -4,39 +4,89 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<br />
+<br />
+<br />
 
+Cities count in database: @ViewData["CitiesCount"]
+
+<br />
+<br />
+<br />
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Type)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Amount)
-                </th>
-                @*<th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aplus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aminus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bplus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bminus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ABplus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ABminus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Oplus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ominus)
+            </th>
+            @*<th>
                 </th>*@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            @*<td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>*@
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aplus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aminus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bplus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bminus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ABplus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ABminus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Oplus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ominus)
+                </td>
+                @*<td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>*@
+            </tr>
+        }
     </tbody>
 </table>

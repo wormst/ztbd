@@ -22,7 +22,10 @@ namespace BloodTypes.Web.Views
         // GET: BloodAmounts
         public async Task<IActionResult> Index()
         {
-            return View(await Task.Run(() => _context.BloodAmounts.GetAll()));
+            var data = _context.BloodAmounts.GetAll();
+            ViewData["CitiesCount"] = data.Count();
+
+            return View(await Task.Run(() => _context.BloodAmounts.GetAll().Take(20)));
         }
 
         // GET: BloodAmounts/Details/5

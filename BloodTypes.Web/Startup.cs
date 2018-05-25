@@ -52,7 +52,7 @@ namespace BloodTypes.Web
                     template: "{controller=People}/{action=Index}/{id?}");
             });
 
-            DbSeeder.Seed(dbContext);
+            //DbSeeder.Seed(dbContext);
         }
     }
 }

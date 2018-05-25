@@ -23,7 +23,8 @@ namespace BloodTypes.Infrastructure
         public CassandraDbContext()
         {
             Cluster cluster = Cluster.Builder()
-                .AddContactPoint(nodeAddress)
+                .AddContactPoint(this.nodeAddress)
+                .WithLoadBalancingPolicy(new RetryLoadBalancingPolicy(Policies.DefaultLoadBalancingPolicy, Policies.DefaultReconnectionPolicy))
                 .Build();
             Session = cluster.Connect(this.keyspace);
 

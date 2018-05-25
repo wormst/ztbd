@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BloodTypes.Infrastructure
@@ -54,17 +55,28 @@ namespace BloodTypes.Infrastructure
         {
             await Task.Run(() =>
             {
-                List<BloodAmount> bloods = new List<BloodAmount>();
-                bloods.Add(new BloodAmount { Amount = 102, Type = "A+" });
-                bloods.Add(new BloodAmount { Amount = 104, Type = "A-" });
-                bloods.Add(new BloodAmount { Amount = 65, Type = "B+" });
-                bloods.Add(new BloodAmount { Amount = 43, Type = "B-" });
-                bloods.Add(new BloodAmount { Amount = 123, Type = "AB+" });
-                bloods.Add(new BloodAmount { Amount = 54, Type = "AB-" });
-                bloods.Add(new BloodAmount { Amount = 42, Type = "0+" });
-                bloods.Add(new BloodAmount { Amount = 22, Type = "0-" });
+                var cities = context.People.GetAll().Select(p => p.City).Distinct();
+                List<BloodAmount> bloodAmounts = new List<BloodAmount>();
 
-                foreach (var item in bloods)
+                Random random = new Random();
+
+                foreach (string city in cities)
+                {
+                    bloodAmounts.Add(new BloodAmount
+                    {
+                        City = city,
+                        Aplus = random.Next(10, 150),
+                        Aminus = random.Next(10, 150),
+                        Bplus = random.Next(10, 150),
+                        Bminus = random.Next(10, 150),
+                        ABplus = random.Next(10, 150),
+                        ABminus = random.Next(10, 150),
+                        Oplus = random.Next(10, 150),
+                        Ominus = random.Next(10, 150)
+                    });
+                }
+
+                foreach (var item in bloodAmounts)
                 {
                     context.BloodAmounts.Add(item);
                 }

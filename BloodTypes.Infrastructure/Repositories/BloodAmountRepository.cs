@@ -10,7 +10,7 @@ namespace BloodTypes.Infrastructure.Repositories
     public class BloodAmountRepository : IRepository<BloodAmount>
     {
         private ISession session;
-        private readonly string tableName = "bloodAmounts";
+        private readonly string tableName = "cities";
 
         public BloodAmountRepository(ISession session)
         {
@@ -21,8 +21,9 @@ namespace BloodTypes.Infrastructure.Repositories
         {
             try
             {
-                var row = this.session.Execute($"INSERT INTO {tableName} (id, type, amount) " +
-                    $"VALUES(uuid(), '{item.Type}', {item.Amount});");
+                var row = this.session.Execute($"INSERT INTO {this.tableName} (id, name, aPlus, aMinus, bPlus, bMinus, abPlus, abMinus, oPlus, oMinus) " +
+                    $"VALUES(uuid(), '{item.City}', {item.Aplus}, {item.Aminus}, {item.Bplus}, {item.Bminus}, " +
+                    $"{item.ABplus}, {item.ABminus}, {item.Oplus}, {item.Ominus});");
 
                 return true;
             }
@@ -39,13 +40,13 @@ namespace BloodTypes.Infrastructure.Repositories
 
         public BloodAmount Get(string id)
         {
-            return ConvertRowToBloodAmount(session.Execute($"SELECT * FROM {tableName} " +
+            return ConvertRowToBloodAmount(this.session.Execute($"SELECT * FROM {this.tableName} " +
                 $"WHERE id = {id};").FirstOrDefault());
         }
 
         public IEnumerable<BloodAmount> GetAll()
         {
-            RowSet people = session.Execute($"SELECT * FROM {tableName}");
+            RowSet people = this.session.Execute($"SELECT * FROM {this.tableName}");
             return people.Select(row => ConvertRowToBloodAmount(row));
         }
 
@@ -53,7 +54,7 @@ namespace BloodTypes.Infrastructure.Repositories
         {
             try
             {
-                var row = this.session.Execute($"DELETE FROM {tableName} WHERE id = {item.Id} IF EXISTS");
+                var row = this.session.Execute($"DELETE FROM {this.tableName} WHERE id = {item.Id} IF EXISTS");
                 return true;
             }
             catch (Exception ex)
@@ -64,8 +65,8 @@ namespace BloodTypes.Infrastructure.Repositories
 
         public bool Update(BloodAmount item)
         {
-            Row result = this.session.Execute($"UPDATE {tableName} " +
-                $"SET amount = {item.Amount}" +
+            Row result = this.session.Execute($"UPDATE {this.tableName} " +
+                $"SET amount = {item.City}" +
                 $"WHERE id = {item.Id} IF EXISTS;").FirstOrDefault();
 
             if (result.Count() > 1 && bool.TryParse(result[0].ToString(), out bool value))
@@ -79,12 +80,19 @@ namespace BloodTypes.Infrastructure.Repositories
         {
             if (row == null)
                 return null;
-
+            
             return new BloodAmount
             {
                 Id = row["id"].ToString(),
-                Type = row["type"].ToString(),
-                Amount = row["amount"] != null ? Double.Parse(row["amount"].ToString()) : 0
+                City = row["name"].ToString(),
+                Aplus = row["aplus"] != null ? Int32.Parse(row["aplus"].ToString()) : 0,
+                Aminus = row["aminus"] != null ? Int32.Parse(row["aminus"].ToString()) : 0,
+                Bplus = row["bplus"] != null ? Int32.Parse(row["bplus"].ToString()) : 0,
+                Bminus = row["bminus"] != null ? Int32.Parse(row["bminus"].ToString()) : 0,
+                ABplus = row["abplus"] != null ? Int32.Parse(row["abplus"].ToString()) : 0,
+                ABminus = row["abminus"] != null ? Int32.Parse(row["abminus"].ToString()) : 0,
+                Oplus = row["oplus"] != null ? Int32.Parse(row["oplus"].ToString()) : 0,
+                Ominus = row["ominus"] != null ? Int32.Parse(row["ominus"].ToString()) : 0,
             };
         }
     }
